@@ -10,12 +10,12 @@ const readinessItems = [
   },
   {
     title: 'Авторизация',
-    description: 'Backend auth API добавлен: вход, refresh, logout, me и смена пароля.',
+    description: 'Backend auth API готов: вход, refresh, logout, me и смена пароля.',
     icon: ShieldCheck,
   },
   {
-    title: 'Интерфейс',
-    description: 'Рабочие экраны первого этапа будут собраны на следующих шагах.',
+    title: 'Права доступа',
+    description: 'Permission map и проверка прав на backend подготовлены.',
     icon: ClipboardList,
   },
 ];
@@ -41,7 +41,7 @@ export default function App() {
             <p className="text-sm font-medium text-muted-foreground">Статус проекта</p>
             <h2 className="mt-2 text-3xl font-semibold tracking-normal">ParaHive в разработке</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-              Готовится первый этап: авторизация, роли, список пилотов, анкеты и управление доступом.
+              Backend-фундамент готовится по шагам: модель данных, авторизация и права доступа. Следующий фокус - API пилотов и анкет.
             </p>
           </div>
 

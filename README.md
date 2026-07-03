@@ -38,6 +38,12 @@ Auth endpoints:
 - `GET /auth/me`
 - `POST /auth/change-password`
 
+Permissions:
+
+- Role permissions are defined in backend code.
+- `GET /auth/me` returns current user permissions.
+- Permissions are not stored in database tables during the first stage.
+
 Required auth env:
 
 - `ACCESS_TOKEN_SECRET`
@@ -62,4 +68,5 @@ Vite opens the app at `http://localhost:5173`.
 - Frontend: React, Vite, Tailwind CSS, shadcn/ui preparation, Radix Slot, lucide-react, placeholder ParaHive page.
 - Prisma schema and seed for `users`, `roles`, `pilot_profiles`, `pilot_statuses`, `pilot_ranks`, and `auth_sessions`.
 - Backend auth endpoints for login, refresh, logout, current user, and password change.
-- No permissions map, users/pilots API, frontend business screens, or flight/accounting modules yet.
+- Backend permission map and `requirePermission` middleware.
+- No users/pilots API, frontend business screens, or flight/accounting modules yet.

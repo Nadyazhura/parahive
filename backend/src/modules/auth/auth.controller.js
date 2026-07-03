@@ -1,5 +1,6 @@
 import { presentUser } from './auth.presenter.js';
 import * as authService from './auth.service.js';
+import { getPermissionsForRole } from '../permissions/permissions.service.js';
 
 function asyncHandler(handler) {
   return (req, res, next) => {
@@ -37,6 +38,7 @@ export const me = asyncHandler(async (req, res) => {
 
   return res.json({
     user: presentUser(user),
+    permissions: getPermissionsForRole(user.roleCode),
   });
 });
 
