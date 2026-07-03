@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  code      String   @id @db.VarChar(32)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  users User[]
+
+  @@map("roles")
+}
+
+model PilotStatus {
+  code      String   @id @db.VarChar(32)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  pilotProfiles PilotProfile[]
+
+  @@map("pilot_statuses")
+}
+
+model PilotRank {
+  code      String   @id @db.VarChar(32)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  pilotProfiles PilotProfile[]
+
+  @@map("pilot_ranks")
+}
+
+model User {
+  id                  String    @id @default(uuid()) @db.Uuid
+  login               String    @unique @db.VarChar(255)
+  email               String    @unique @db.VarChar(255)
+  passwordHash        String    @map("password_hash") @db.Text
+  roleCode            String    @default("PILOT") @map("role_code") @db.VarChar(32)
+  blocked             Boolean   @default(false)
+  failedLoginAttempts Int       @default(0) @map("failed_login_attempts")
+  lockedUntil         DateTime? @map("locked_until")
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
+
+  role         Role          @relation(fields: [roleCode], references: [code], onDelete: Restrict, onUpdate: Cascade)
+  pilotProfile PilotProfile?
+  authSessions AuthSession[]
+
+  @@index([roleCode])
+  @@map("users")
+}
+
+model PilotProfile {
+  id                    String    @id @default(uuid()) @db.Uuid
+  userId                String    @unique @map("user_id") @db.Uuid
+  fullName              String?   @map("full_name") @db.VarChar(255)
+  birthDate             DateTime? @map("birth_date") @db.Date
+  latinFullName         String?   @map("latin_full_name") @db.VarChar(255)
+  phone                 String?   @db.VarChar(64)
+  telegram              String?   @db.VarChar(64)
+  address               String?   @db.Text
+  emergencyContactName  String?   @map("emergency_contact_name") @db.VarChar(255)
+  emergencyContactPhone String?   @map("emergency_contact_phone") @db.VarChar(64)
+  statusCode            String    @default("active") @map("status_code") @db.VarChar(32)
+  rankCode              String    @default("none") @map("rank_code") @db.VarChar(32)
+  parapro               String?   @db.VarChar(32)
+  serviceNotes          String?   @map("service_notes") @db.Text
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status PilotStatus @relation(fields: [statusCode], references: [code], onDelete: Restrict, onUpdate: Cascade)
+  rank   PilotRank   @relation(fields: [rankCode], references: [code], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([statusCode])
+  @@index([rankCode])
+  @@map("pilot_profiles")
+}
+
+model AuthSession {
+  id               String    @id @default(uuid()) @db.Uuid
+  userId           String    @map("user_id") @db.Uuid
+  refreshTokenHash String    @unique @map("refresh_token_hash") @db.Text
+  userAgent        String?   @map("user_agent") @db.Text
+  ipAddress        String?   @map("ip_address") @db.VarChar(64)
+  expiresAt        DateTime  @map("expires_at")
+  revokedAt        DateTime? @map("revoked_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("auth_sessions")
+}

@@ -6,11 +6,16 @@
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
-    "check": "node --check src/app.js && node --check src/server.js && node --check src/config/env.js && node --check src/db/prisma.js && node --check src/middleware/error-handler.js && node --check src/middleware/not-found.js && node --check src/modules/health/health.routes.js",
-    "prisma": "prisma"
+    "check": "node --check src/app.js && node --check src/server.js && node --check src/config/env.js && node --check src/db/prisma.js && node --check src/middleware/error-handler.js && node --check src/middleware/not-found.js && node --check src/modules/health/health.routes.js && node --check prisma/seed.js",
+    "prisma": "prisma",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "prisma db seed",
+    "seed": "prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",
+    "argon2": "^0.44.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^5.0.1"
@@ -20,5 +25,8 @@
   },
   "engines": {
     "node": ">=22"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
 }
