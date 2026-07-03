@@ -79,6 +79,7 @@ async function seedFirstSysadmin() {
       login: sysadmin.login,
       email: sysadmin.email,
       passwordHash,
+      mustChangePassword: true,
       roleCode: 'SYSADMIN',
       pilotProfile: {
         create: {

@@ -4,18 +4,18 @@ import { Button } from '@/components/ui/button';
 
 const readinessItems = [
   {
-    title: 'Пилоты',
-    description: 'Будущий список пользователей-пилотов клуба.',
+    title: 'Модель данных',
+    description: 'Prisma schema и справочники первого этапа подготовлены.',
     icon: UsersRound,
   },
   {
-    title: 'Роли',
-    description: 'SYSADMIN, РК, РП и пилот без бизнес-логики на этом шаге.',
+    title: 'Авторизация',
+    description: 'Backend auth API добавлен: вход, refresh, logout, me и смена пароля.',
     icon: ShieldCheck,
   },
   {
-    title: 'Анкеты',
-    description: 'Основа под карточку пилота и редактирование профиля.',
+    title: 'Интерфейс',
+    description: 'Рабочие экраны первого этапа будут собраны на следующих шагах.',
     icon: ClipboardList,
   },
 ];
@@ -30,7 +30,7 @@ export default function App() {
             <h1 className="text-2xl font-semibold tracking-normal">ParaHive</h1>
           </div>
           <Button type="button" variant="outline">
-            Scaffold ready
+            Первый этап
           </Button>
         </div>
       </section>
@@ -38,10 +38,10 @@ export default function App() {
       <section className="container py-8 md:py-12">
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <div className="rounded-lg border bg-card p-6 shadow-sm">
-            <p className="text-sm font-medium text-muted-foreground">Шаг 1</p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-normal">Базовый каркас проекта создан</h2>
+            <p className="text-sm font-medium text-muted-foreground">Статус проекта</p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-normal">ParaHive в разработке</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-              Здесь будет рабочий интерфейс первого этапа: вход, список пилотов, анкеты и управление доступом.
+              Готовится первый этап: авторизация, роли, список пилотов, анкеты и управление доступом.
             </p>
           </div>
 

@@ -42,6 +42,8 @@ model User {
   login               String    @unique @db.VarChar(255)
   email               String    @unique @db.VarChar(255)
   passwordHash        String    @map("password_hash") @db.Text
+  mustChangePassword  Boolean   @default(false) @map("must_change_password")
+  passwordChangedAt   DateTime? @map("password_changed_at")
   roleCode            String    @default("PILOT") @map("role_code") @db.VarChar(32)
   blocked             Boolean   @default(false)
   failedLoginAttempts Int       @default(0) @map("failed_login_attempts")
