@@ -2,6 +2,19 @@
 
 Internal CRM/ERP scaffold for a paragliding club.
 
+## Local PostgreSQL
+
+```bash
+docker compose up -d postgres
+docker compose ps
+```
+
+Connection string for local development:
+
+```bash
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/parahive?schema=public
+```
+
 ## Backend
 
 ```bash
@@ -76,12 +89,21 @@ npm run dev
 
 Vite opens the app at `http://localhost:5173`.
 
+Frontend foundation:
+
+- `AuthProvider` stores tokens, loads `/auth/me`, and exposes login/logout/session helpers.
+- `ProtectedRoute` guards authenticated sections and route permissions.
+- Hash routing maps first-stage sections to placeholder views.
+- `AppLayout` provides sidebar/topbar navigation and mobile menu behavior.
+- Navigation items are filtered by backend-provided permissions.
+- `apiClient` centralizes auth, pilots, profile, and users API calls.
+
 ## Current Scope
 
 - Backend: Node.js, Express, `/health`, base `src` layout, `.env.example`, Prisma dependency and placeholder client.
-- Frontend: React, Vite, Tailwind CSS, shadcn/ui preparation, Radix Slot, lucide-react, placeholder ParaHive page.
+- Frontend: React, Vite, Tailwind CSS, shadcn/ui preparation, Radix Slot, lucide-react, app layout, auth state foundation, protected route foundation, API client foundation, and permission-driven navigation.
 - Prisma schema and seed for `users`, `roles`, `pilot_profiles`, `pilot_statuses`, `pilot_ranks`, and `auth_sessions`.
 - Backend auth endpoints for login, refresh, logout, current user, and password change.
 - Backend permission map and `requirePermission` middleware.
 - Backend users, pilots, and profile API for the first stage.
-- No frontend business screens or flight/accounting modules yet.
+- No finished frontend business screens or flight/accounting modules yet.

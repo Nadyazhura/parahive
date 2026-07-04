@@ -14,6 +14,7 @@ function getSysadminEnv() {
     email: process.env.SEED_SYSADMIN_EMAIL,
     password: process.env.SEED_SYSADMIN_PASSWORD,
     fullName: process.env.SEED_SYSADMIN_FULL_NAME,
+    mustChangePassword: process.env.SEED_SYSADMIN_MUST_CHANGE_PASSWORD !== 'false',
   };
 
   const required = ['login', 'email', 'password'];
@@ -28,8 +29,8 @@ function getSysadminEnv() {
     throw new Error(`Missing required SYSADMIN seed env vars: ${missing.map((key) => `SEED_SYSADMIN_${key.toUpperCase()}`).join(', ')}`);
   }
 
-  if (values.password.length < 12) {
-    throw new Error('SEED_SYSADMIN_PASSWORD must be at least 12 characters long.');
+  if (values.password.length < 8) {
+    throw new Error('SEED_SYSADMIN_PASSWORD must be at least 8 characters long.');
   }
 
   return values;
@@ -79,7 +80,7 @@ async function seedFirstSysadmin() {
       login: sysadmin.login,
       email: sysadmin.email,
       passwordHash,
-      mustChangePassword: true,
+      mustChangePassword: sysadmin.mustChangePassword,
       roleCode: 'SYSADMIN',
       pilotProfile: {
         create: {
