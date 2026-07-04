@@ -44,6 +44,20 @@ Permissions:
 - `GET /auth/me` returns current user permissions.
 - Permissions are not stored in database tables during the first stage.
 
+Users/Pilots/Profile API:
+
+- `GET /users` lists managed users for roles with `users:read_all`.
+- `POST /users` creates a user with a temporary password and pilot profile.
+- `PATCH /users/:id` updates account login/email fields.
+- `PATCH /users/:id/role` assigns a role.
+- `PATCH /users/:id/block` updates `users.blocked`.
+- `POST /users/:id/reset-password` sets a new temporary password and revokes active refresh sessions.
+- `GET /pilots` lists pilots with public or extended fields depending on permissions.
+- `GET /pilots/:id` returns a public pilot card, or a full profile when the requester has access.
+- `PATCH /pilots/:id/profile` updates another pilot profile. `FLIGHTMANAGER` is limited to flight/training fields: `statusCode`/`pilotStatusCode`, `rankCode`, `parapro`, and `serviceNotes`.
+- `GET /profile/me` returns the current user's profile.
+- `PATCH /profile/me` updates the current user's allowed personal profile fields.
+
 Required auth env:
 
 - `ACCESS_TOKEN_SECRET`
@@ -69,4 +83,5 @@ Vite opens the app at `http://localhost:5173`.
 - Prisma schema and seed for `users`, `roles`, `pilot_profiles`, `pilot_statuses`, `pilot_ranks`, and `auth_sessions`.
 - Backend auth endpoints for login, refresh, logout, current user, and password change.
 - Backend permission map and `requirePermission` middleware.
-- No users/pilots API, frontend business screens, or flight/accounting modules yet.
+- Backend users, pilots, and profile API for the first stage.
+- No frontend business screens or flight/accounting modules yet.

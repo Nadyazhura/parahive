@@ -1,4 +1,4 @@
-import { ClipboardList, ShieldCheck, UsersRound } from 'lucide-react';
+import { ClipboardList, ShieldCheck, UserRoundCog, UsersRound } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -17,6 +17,11 @@ const readinessItems = [
     title: 'Права доступа',
     description: 'Permission map и проверка прав на backend подготовлены.',
     icon: ClipboardList,
+  },
+  {
+    title: 'Users/Pilots/Profile API',
+    description: 'API пользователей, пилотов и анкет первого этапа готово.',
+    icon: UserRoundCog,
   },
 ];
 
@@ -41,7 +46,7 @@ export default function App() {
             <p className="text-sm font-medium text-muted-foreground">Статус проекта</p>
             <h2 className="mt-2 text-3xl font-semibold tracking-normal">ParaHive в разработке</h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-              Backend-фундамент готовится по шагам: модель данных, авторизация и права доступа. Следующий фокус - API пилотов и анкет.
+              Backend-фундамент готов: модель данных, авторизация, права доступа и Users/Pilots/Profile API. Следующий фокус - frontend foundation и первые рабочие экраны.
             </p>
           </div>
 

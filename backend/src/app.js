@@ -6,6 +6,9 @@ import { errorHandler } from './middleware/error-handler.js';
 import { notFound } from './middleware/not-found.js';
 import authRouter from './modules/auth/auth.routes.js';
 import healthRouter from './modules/health/health.routes.js';
+import pilotsRouter from './modules/pilots/pilots.routes.js';
+import profileRouter from './modules/profile/profile.routes.js';
+import usersRouter from './modules/users/users.routes.js';
 
 export function createApp() {
   const app = express();
@@ -15,6 +18,9 @@ export function createApp() {
   app.use(express.json());
 
   app.use('/auth', authRouter);
+  app.use('/pilots', pilotsRouter);
+  app.use('/profile', profileRouter);
+  app.use('/users', usersRouter);
   app.use('/health', healthRouter);
 
   app.use(notFound);
